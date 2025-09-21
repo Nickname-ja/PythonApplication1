@@ -4,7 +4,7 @@ import math
 # целочисленных значений, все они помещаются в квадратные матрицы минимально
 # необходимого размера (недостающие числа заполняются нулями). Предусмотреть
 # какие-то операции с наборами
-
+#делает квадратную матрицу из набора чисел
 def to_square_matrix(seq):
     n = len(seq)
     size = math.ceil(math.sqrt(n))
@@ -14,13 +14,13 @@ def to_square_matrix(seq):
         row = seq[i * size:(i + 1) * size]
         matrix.append(row)
     return matrix
-
+#выводит матрицу на экран
 def print_matrix(matrix):
     for row in matrix:
         for elem in row:
             print(f"{elem:4}", end=' ')
         print()
-
+#выводит все наборы
 def print_all_sets(sets):
     i = 0;
     if not sets:
@@ -30,7 +30,7 @@ def print_all_sets(sets):
         i += 1
         print("Набор ", i, ":", sep='')
         print_matrix(n)
-
+#безопасный ввод 1 числа
 def safe_inp(massage, lamb):
     if (massage):
         print(massage)
@@ -43,7 +43,7 @@ def safe_inp(massage, lamb):
                 print("Ошибка: номер вне диапазона")
         except ValueError:
             print("Ошибка: введите число.")
-
+#ввод набора чисел из консоли
 def inp_num():
     while True:
         raw = input("Введите целые числа\n>").strip()
@@ -54,18 +54,18 @@ def inp_num():
             return numbers
         else:
             print("Ошибка ввода.")
-
+#удаляет матрицу по введёному номеру
 def del_matrix(sets):
     print_all_sets(sets)
     i = safe_inp("Введите номер набора", lambda x: x < len(sets) + 1) - 1
     sets.pop(i)
-
+#переводит матрицу в набор чисел
 def matrix_to_set(matrix):
     s = [x for row in matrix for x in row]
     while s and s[-1] == 0:
         s.pop()
     return s
-
+#объединяет матрицы (исходные матрицы удаляются, получившаяся встаёт на место первой по порядку в программе)
 def matrix_concatenation(sets):
     print_all_sets(sets)
     x = safe_inp("Введите номера наборов по очереди", lambda x: x < len(sets) + 1) - 1
@@ -73,7 +73,7 @@ def matrix_concatenation(sets):
     new_set = matrix_to_set(sets[x]) + matrix_to_set(sets[y])
     sets.pop(max(x, y))
     sets[min(x, y)] = to_square_matrix(new_set)
-
+#повторяет набор  введённое количество раз (получившаяся матрица окажется на месте исходной)
 def repetition_set(sets):
     print_all_sets(sets)
     i = safe_inp("Введите номер набора", lambda x: x < len(sets) + 1) - 1
@@ -82,7 +82,7 @@ def repetition_set(sets):
     s = s * (n + 1)
     sets[i] = to_square_matrix(s)
 
-
+#вычисляет среднее кол-во реальных элементов в наборах
 def average_number_of_elements(sets):
     count = 0
     i = 0
@@ -96,6 +96,7 @@ def average_number_of_elements(sets):
 def main():
     sets = []
     while True:
+        #МЕНЮ
         print("1. Добавить набор")
         print("2. Удалить набор")
         print("3. Конкатенация наборов")
