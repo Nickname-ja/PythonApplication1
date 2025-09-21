@@ -105,7 +105,7 @@ def main():
         print("6. Среднее количество настоящих элементов")
         print("7. Завершить")
 
-        choice = input(">")
+        choice = input(">").strip()
 
         if (choice == "1"):
             sets.append(to_square_matrix(inp_num()))
